@@ -1,0 +1,72 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.MuiSvgIcon-root:hover {
+    cursor: pointer;
+}
+
+.showDoneLabel {
+    margin-right: 10px;
+}
+
+.categoriesInput {
+    padding-left: 7px;
+}
+
+.categoryHeadline {
+    margin-top: 20px;
+}
+
+.todoListHeadline {
+    margin-top: 20px;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.deleteCategoryBtn {
+    margin-left: 10px;
+}
+
+.categoryGroup {
+    border: 1px solid transparent;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    display: block;
+    padding: 5px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.categoryList {
+    margin-top: 20px;
+}
+
+.todoList {
+    border: 1px solid transparent;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    display: block;
+    padding: 5px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+input#todoTitle {
+    padding-left: 10px;
+}
+
+.todoTitle {
+    display: inline-block;
+}
+.MuiTypography-root.noActiveCategoryHeadline.MuiTypography-body1 {
+    margin-top: 20px;
+}
+.MuiGrid-root.mainContainer.MuiGrid-container.MuiGrid-spacing-xs-3 {
+    margin-top: 50px;
+}
