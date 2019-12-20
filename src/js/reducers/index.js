@@ -3,13 +3,16 @@ import {
   DELETE_CATEGORY,
   SET_ACTIVE_CATEGORY,
   ADD_TODO,
-  TOGGLE_TODO_STATUS
+  TOGGLE_TODO_STATUS,
+  TOGGLE_MODAL_OPEN,
+  TOGGLE_MODAL_CLOSE
 } from "../constants/action-types";
 
 const initialState = {
   todos: [],
   activeCategory: null,
-  categories: []
+  categories: [],
+  isOpenEditModal: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -24,12 +27,11 @@ function rootReducer(state = initialState, action) {
       const todos = state.todos.filter(
         todo => todo.categoryID !== action.payload
       );
-      console.log(action.payload);
-
       return {
         ...state,
+        activeCategory: null,
         categories,
-        todos: [...todos, todos]
+        todos
       };
     }
     case SET_ACTIVE_CATEGORY: {
@@ -45,10 +47,22 @@ function rootReducer(state = initialState, action) {
         }
         return {
           ...item,
-          ...action.payload
+          isDone: !item.isDone
         };
       });
       return { ...state, todos };
+    }
+    case TOGGLE_MODAL_OPEN: {
+      return {
+        ...state,
+        isOpenEditModal: true
+      };
+    }
+    case TOGGLE_MODAL_CLOSE: {
+      return {
+        ...state,
+        isOpenEditModal: false
+      };
     }
     default: {
       return state;

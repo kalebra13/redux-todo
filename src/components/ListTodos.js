@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import EditModal from "./EditModal";
 import { connect } from "react-redux";
 import { Checkbox, Box, Button, Typography } from "@material-ui/core";
 import { toggleTodoStatus } from "../js/actions/index";
+import { toggleModalOpen } from "../js/actions/index";
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleTodoStatus: todo => dispatch(toggleTodoStatus(todo))
+    toggleTodoStatus: todo => dispatch(toggleTodoStatus(todo)),
+    toggleModalOpen: () => dispatch(toggleModalOpen())
   };
 }
 
@@ -21,11 +24,13 @@ class ConnectedListTodos extends Component {
   }
   handleTodoStatus(todo) {
     const { toggleTodoStatus } = this.props;
-    todo.isDone = !todo.isDone;
     return function() {
       toggleTodoStatus(todo);
     };
   }
+  handleOpenModal = () => {
+    this.props.toggleModalOpen();
+  };
   render() {
     const { activeCategoryID, todos } = this.props;
     const filteredTodos = todos.filter(
@@ -59,11 +64,14 @@ class ConnectedListTodos extends Component {
                     {todo.todoTitle}
                   </Typography>
                 </Box>
-                <Button color="default"> EDIT </Button>
+                <Button onClick={this.handleOpenModal} color="default">
+                  EDIT
+                </Button>
               </div>
             ))}
           </>
         )}
+        <EditModal></EditModal>
       </div>
     );
   }

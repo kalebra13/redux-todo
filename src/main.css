@@ -70,3 +70,37 @@ input#todoTitle {
 .MuiGrid-root.mainContainer.MuiGrid-container.MuiGrid-spacing-xs-3 {
     margin-top: 50px;
 }
+
+.modalClosed {
+    display: none;
+}
+
+.modalOpened {
+    display: flex;
+}
+
+.modalOverlay {
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modalBody {
+    background-color: #fff;
+    padding: 30px 30px;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.saveEditBtn{
+    margin-left: 20px
+}
+
+.editTodoHeadline {
+    margin-bottom: 50px;
+}

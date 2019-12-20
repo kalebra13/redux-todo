@@ -3,7 +3,9 @@ import {
   DELETE_CATEGORY,
   SET_ACTIVE_CATEGORY,
   ADD_TODO,
-  TOGGLE_TODO_STATUS
+  TOGGLE_TODO_STATUS,
+  TOGGLE_MODAL_OPEN,
+  TOGGLE_MODAL_CLOSE
 } from "../constants/action-types";
 
 export function addCategory(payload) {
@@ -24,4 +26,12 @@ export function addTodo(payload) {
 
 export function toggleTodoStatus(payload) {
   return { type: TOGGLE_TODO_STATUS, payload };
+}
+
+export function toggleModalOpen() {
+  return { type: TOGGLE_MODAL_OPEN };
+}
+
+export function toggleModalClose() {
+  return { type: TOGGLE_MODAL_CLOSE };
 }
