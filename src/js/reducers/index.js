@@ -5,14 +5,17 @@ import {
   ADD_TODO,
   TOGGLE_TODO_STATUS,
   TOGGLE_MODAL_OPEN,
-  TOGGLE_MODAL_CLOSE
+  TOGGLE_MODAL_CLOSE,
+  SET_ACTIVE_TODO
 } from "../constants/action-types";
 
 const initialState = {
   todos: [],
-  activeCategory: null,
+  activeCategoryID: null,
   categories: [],
-  isOpenEditModal: false
+  isOpenEditModal: false,
+  activeTodoID: null,
+  activeTodoTitle: ""
 };
 
 function rootReducer(state = initialState, action) {
@@ -29,13 +32,13 @@ function rootReducer(state = initialState, action) {
       );
       return {
         ...state,
-        activeCategory: null,
+        activeCategoryID: null,
         categories,
         todos
       };
     }
     case SET_ACTIVE_CATEGORY: {
-      return { ...state, activeCategory: action.payload };
+      return { ...state, activeCategoryID: action.payload };
     }
     case ADD_TODO: {
       return { ...state, todos: [...state.todos, action.payload] };
@@ -51,6 +54,13 @@ function rootReducer(state = initialState, action) {
         };
       });
       return { ...state, todos };
+    }
+    case SET_ACTIVE_TODO: {
+      return {
+        ...state,
+        activeTodoID: action.payload.id,
+        activeTodoTitle: action.payload.title
+      };
     }
     case TOGGLE_MODAL_OPEN: {
       return {

@@ -13,7 +13,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return { categoryID: state.activeCategory };
+  return { categoryID: state.activeCategoryID };
 }
 
 class ConnectedAddTodoInput extends Component {

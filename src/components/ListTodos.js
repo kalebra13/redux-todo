@@ -2,18 +2,22 @@ import React, { Component } from "react";
 import EditModal from "./EditModal";
 import { connect } from "react-redux";
 import { Checkbox, Box, Button, Typography } from "@material-ui/core";
-import { toggleTodoStatus } from "../js/actions/index";
-import { toggleModalOpen } from "../js/actions/index";
+import {
+  toggleTodoStatus,
+  toggleModalOpen,
+  setActiveTodo
+} from "../js/actions/index";
 
 function mapDispatchToProps(dispatch) {
   return {
     toggleTodoStatus: todo => dispatch(toggleTodoStatus(todo)),
-    toggleModalOpen: () => dispatch(toggleModalOpen())
+    toggleModalOpen: () => dispatch(toggleModalOpen()),
+    setActiveTodo: (id, title) => dispatch(setActiveTodo(id, title))
   };
 }
 
 function mapStateToProps(state) {
-  return { activeCategoryID: state.activeCategory, todos: state.todos };
+  return { activeCategoryID: state.activeCategoryID, todos: state.todos };
 }
 
 class ConnectedListTodos extends Component {
@@ -21,6 +25,8 @@ class ConnectedListTodos extends Component {
     super(props);
 
     this.handleTodoStatus = this.handleTodoStatus.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleActiveTodo = this.handleActiveTodo.bind(this);
   }
   handleTodoStatus(todo) {
     const { toggleTodoStatus } = this.props;
@@ -28,9 +34,13 @@ class ConnectedListTodos extends Component {
       toggleTodoStatus(todo);
     };
   }
-  handleOpenModal = () => {
+  handleOpenModal() {
     this.props.toggleModalOpen();
-  };
+  }
+
+  handleActiveTodo(id, title) {
+    this.props.setActiveTodo({ id, title });
+  }
   render() {
     const { activeCategoryID, todos } = this.props;
     const filteredTodos = todos.filter(
@@ -64,7 +74,13 @@ class ConnectedListTodos extends Component {
                     {todo.todoTitle}
                   </Typography>
                 </Box>
-                <Button onClick={this.handleOpenModal} color="default">
+                <Button
+                  onClick={() => {
+                    this.handleActiveTodo(todo.todoID, todo.todoTitle);
+                    this.handleOpenModal();
+                  }}
+                  color="default"
+                >
                   EDIT
                 </Button>
               </div>
