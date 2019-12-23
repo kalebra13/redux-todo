@@ -3,49 +3,36 @@ import { Button, Input } from "@material-ui/core";
 import { connect } from "react-redux";
 import { toggleModalClose } from "../js/actions/index";
 
-function mapStateToProps(state) {
-  return {
-    isOpen: state.isOpenEditModal,
-    activeTodoID: state.activeTodoID,
-    activeTodoTitle: state.activeTodoTitle
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    toggleModalClose: () => dispatch(toggleModalClose())
-  };
-}
-
 class ConnectedEditModal extends Component {
-  static getDerivedStateFromProps(props, state) {
-    if (props.activeTodoTitle !== state.prevActiveTodoTitle) {
-      return {
-        prevActiveTodoTitle: props.activeTodoTitle
-      };
-    }
+  state = {
+    todoTitle: null
+  };
 
-    // Return null if the state hasn't changed
-    return null;
+  componentWillReceiveProps(nextProps){
+    if (!this.props.activeTodoTitle && nextProps.activeTodoTitle !== this.props.activeTodoTitle){
+      this.setState({todoTitle: nextProps.activeTodoTitle });
+    }
   }
 
-  state = {};
-
-  handleClose = () => {
-    this.props.toggleModalClose();
-  };
   handleChange = e => {
     this.setState({
-      prevActiveTodoTitle: e.target.value
+      todoTitle: e.target.value
     });
     console.log(this.state);
   };
+
+  handleClose = () => {
+    this.props.toggleModalClose(this.state.todoTitle);
+  };
+
   render() {
-    const { isOpen } = this.props;
+    const { activeTodoID } = this.props;
+    const {todoTitle} = this.state;
+
     return (
       <div
         className={
-          isOpen ? "modalOverlay modalOpened" : "modalOverlay modalClosed"
+          activeTodoID ? "modalOverlay modalOpened" : "modalOverlay modalClosed"
         }
       >
         <div className="modalBody">
@@ -55,9 +42,10 @@ class ConnectedEditModal extends Component {
             margin="dense"
             placeholder="Enter new to-do title"
             required
-            value={this.state.prevActiveTodoTitle}
+            // value={this.state.prevActiveTodoTitle}
+            value={todoTitle}
             onChange={this.handleChange}
-          ></Input>
+          />
           <Button className="saveEditBtn" onClick={this.handleClose}>
             Save
           </Button>
@@ -68,9 +56,18 @@ class ConnectedEditModal extends Component {
   }
 }
 
-const EditModal = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ConnectedEditModal);
+const mapStateToProps = state => (
+    {
+        // isOpen: state.isOpenEditModal,
+        activeTodoID: state.activeTodoID,
+        activeTodoTitle: state.activeTodoTitle
+    }
+);
 
-export default EditModal;
+const mapDispatchToProps = dispatch => (
+    {
+        toggleModalClose: (title) => dispatch(toggleModalClose(title))
+    }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConnectedEditModal)

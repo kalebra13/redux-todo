@@ -5,7 +5,10 @@ import store from "./js/store/index";
 import App from "./components/App";
 // eslint-disable-next-line
 import main from "./main.css";
-render(
+
+document.store = store;
+
+    render(
   <Provider store={store}>
     <App />
   </Provider>,

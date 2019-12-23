@@ -29,12 +29,12 @@ export function toggleTodoStatus(payload) {
   return { type: TOGGLE_TODO_STATUS, payload };
 }
 
-export function toggleModalOpen() {
-  return { type: TOGGLE_MODAL_OPEN };
+export function toggleModalOpen(id, title) {
+  return { type: TOGGLE_MODAL_OPEN, payload: {id, title} };
 }
 
-export function toggleModalClose() {
-  return { type: TOGGLE_MODAL_CLOSE };
+export function toggleModalClose(title) {
+  return { type: TOGGLE_MODAL_CLOSE, payload: {title} };
 }
 
 export function setActiveTodo(payload) {

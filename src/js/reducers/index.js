@@ -65,13 +65,28 @@ function rootReducer(state = initialState, action) {
     case TOGGLE_MODAL_OPEN: {
       return {
         ...state,
-        isOpenEditModal: true
+        isOpenEditModal: true,
+        activeTodoID: action.payload.id,
+        activeTodoTitle: action.payload.title
       };
     }
     case TOGGLE_MODAL_CLOSE: {
+      const todos = state.todos.map(item => {
+        if (item.todoID !== state.activeTodoID) {
+          return item;
+        }
+        return {
+          ...item,
+          todoTitle: action.payload.title
+        };
+      });
+
       return {
         ...state,
-        isOpenEditModal: false
+        isOpenEditModal: false,
+        activeTodoID: null,
+        activeTodoTitle: "",
+        todos
       };
     }
     default: {

@@ -11,7 +11,7 @@ import {
 function mapDispatchToProps(dispatch) {
   return {
     toggleTodoStatus: todo => dispatch(toggleTodoStatus(todo)),
-    toggleModalOpen: () => dispatch(toggleModalOpen()),
+    toggleModalOpen: (id, title) => dispatch(toggleModalOpen(id, title)),
     setActiveTodo: (id, title) => dispatch(setActiveTodo(id, title))
   };
 }
@@ -25,8 +25,8 @@ class ConnectedListTodos extends Component {
     super(props);
 
     this.handleTodoStatus = this.handleTodoStatus.bind(this);
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleActiveTodo = this.handleActiveTodo.bind(this);
+    // this.handleOpenModal = this.handleOpenModal.bind(this);
+    // this.handleActiveTodo = this.handleActiveTodo.bind(this);
   }
   handleTodoStatus(todo) {
     const { toggleTodoStatus } = this.props;
@@ -34,18 +34,27 @@ class ConnectedListTodos extends Component {
       toggleTodoStatus(todo);
     };
   }
-  handleOpenModal() {
-    this.props.toggleModalOpen();
-  }
 
-  handleActiveTodo(id, title) {
-    this.props.setActiveTodo({ id, title });
-  }
+  // handleOpenModal() {
+  //   this.props.toggleModalOpen();
+  // }
+  //
+  // handleActiveTodo(id, title) {
+  //   debugger
+  //   this.props.setActiveTodo({ id, title });
+  // }
+
+  handleClick = (id, title) => {
+    // this.props.setActiveTodo({ id, title });
+    this.props.toggleModalOpen(id, title)
+  };
+
   render() {
     const { activeCategoryID, todos } = this.props;
     const filteredTodos = todos.filter(
       todo => todo.categoryID === activeCategoryID
     );
+
 
     return (
       <div>
@@ -69,15 +78,16 @@ class ConnectedListTodos extends Component {
                   <Checkbox
                     onClick={this.handleTodoStatus(todo)}
                     color="default"
-                  ></Checkbox>
+                  />
                   <Typography className="todoTitle">
                     {todo.todoTitle}
                   </Typography>
                 </Box>
                 <Button
                   onClick={() => {
-                    this.handleActiveTodo(todo.todoID, todo.todoTitle);
-                    this.handleOpenModal();
+                    // this.handleActiveTodo(todo.todoID, todo.todoTitle);
+                    // this.handleOpenModal();
+                    this.handleClick(todo.todoID, todo.todoTitle);
                   }}
                   color="default"
                 >
@@ -87,7 +97,7 @@ class ConnectedListTodos extends Component {
             ))}
           </>
         )}
-        <EditModal></EditModal>
+        <EditModal/>
       </div>
     );
   }

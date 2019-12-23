@@ -11,7 +11,7 @@ import ListTodos from "./ListTodos";
 const App = () => (
   <>
     <Container>
-      <Header></Header>
+      <Header />
       <Grid container spacing={3} className="mainContainer">
         <Grid item lg={4}>
           <Form />
@@ -21,10 +21,10 @@ const App = () => (
         <Grid item lg={7}>
           <Container>
             <Box display="flex">
-              <AddTodoInput></AddTodoInput>
+              <AddTodoInput />
             </Box>
             <h4 className="todoListHeadline"> Todos</h4>
-            <ListTodos></ListTodos>
+            <ListTodos />
           </Container>
         </Grid>
       </Grid>
