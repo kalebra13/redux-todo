@@ -3,7 +3,23 @@ import { Button, Input } from "@material-ui/core";
 import { connect } from "react-redux";
 import { changeActiveTitle, toggleModalSave, toggleModalClose } from "../js/actions/index";
 
-const EditModal = ({isOpenEditModal, activeTodoTitle, changeActiveTitle, toggleModalSave, toggleModalClose}) => (
+const mapStateToProps = state => (
+    {
+        isOpenEditModal: state.isOpenEditModal,
+        activeTodoTitle: state.activeTodoTitle,
+    }
+);
+
+const mapDispatchToProps = dispatch => (
+    {
+        changeActiveTitle: (title) => dispatch(changeActiveTitle(title)),
+        toggleModalSave: () => dispatch(toggleModalSave()),
+        toggleModalClose: () => dispatch(toggleModalClose()),
+    }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)
+(({isOpenEditModal, activeTodoTitle, changeActiveTitle, toggleModalSave, toggleModalClose}) => (
     isOpenEditModal ? (
         <div className="modalOverlay">
             <div className="modalBody">
@@ -23,21 +39,4 @@ const EditModal = ({isOpenEditModal, activeTodoTitle, changeActiveTitle, toggleM
             </div>
         </div>
     ) : null
-);
-
-const mapStateToProps = state => (
-    {
-        isOpenEditModal: state.isOpenEditModal,
-        activeTodoTitle: state.activeTodoTitle,
-    }
-);
-
-const mapDispatchToProps = dispatch => (
-    {
-        changeActiveTitle: (title) => dispatch(changeActiveTitle(title)),
-        toggleModalSave: () => dispatch(toggleModalSave()),
-        toggleModalClose: () => dispatch(toggleModalClose()),
-    }
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditModal)
+))
