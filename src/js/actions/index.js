@@ -5,8 +5,10 @@ import {
   ADD_TODO,
   TOGGLE_TODO_STATUS,
   TOGGLE_MODAL_OPEN,
+  TOGGLE_MODAL_SAVE,
   TOGGLE_MODAL_CLOSE,
-  SET_ACTIVE_TODO
+  SET_ACTIVE_TODO,
+  CHANGE_ACTIVE_TITLE
 } from "../constants/action-types";
 
 export function addCategory(payload) {
@@ -33,10 +35,18 @@ export function toggleModalOpen(id, title) {
   return { type: TOGGLE_MODAL_OPEN, payload: {id, title} };
 }
 
-export function toggleModalClose(title) {
-  return { type: TOGGLE_MODAL_CLOSE, payload: {title} };
+export function toggleModalSave() {
+  return { type: TOGGLE_MODAL_SAVE };
+}
+
+export function toggleModalClose() {
+  return { type: TOGGLE_MODAL_CLOSE };
 }
 
 export function setActiveTodo(payload) {
   return { type: SET_ACTIVE_TODO, payload };
+}
+
+export function changeActiveTitle(payload) {
+  return { type: CHANGE_ACTIVE_TITLE, payload };
 }

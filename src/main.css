@@ -71,15 +71,8 @@ input#todoTitle {
     margin-top: 50px;
 }
 
-.modalClosed {
-    display: none;
-}
-
-.modalOpened {
-    display: flex;
-}
-
 .modalOverlay {
+    display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;

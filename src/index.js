@@ -6,8 +6,6 @@ import App from "./components/App";
 // eslint-disable-next-line
 import main from "./main.css";
 
-document.store = store;
-
     render(
   <Provider store={store}>
     <App />

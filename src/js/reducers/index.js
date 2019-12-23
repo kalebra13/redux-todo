@@ -5,8 +5,10 @@ import {
   ADD_TODO,
   TOGGLE_TODO_STATUS,
   TOGGLE_MODAL_OPEN,
+  TOGGLE_MODAL_SAVE,
   TOGGLE_MODAL_CLOSE,
-  SET_ACTIVE_TODO
+  SET_ACTIVE_TODO,
+  CHANGE_ACTIVE_TITLE
 } from "../constants/action-types";
 
 const initialState = {
@@ -70,14 +72,22 @@ function rootReducer(state = initialState, action) {
         activeTodoTitle: action.payload.title
       };
     }
-    case TOGGLE_MODAL_CLOSE: {
+
+    case CHANGE_ACTIVE_TITLE: {
+      return {
+        ...state,
+        activeTodoTitle: action.payload
+      };
+    }
+
+    case TOGGLE_MODAL_SAVE: {
       const todos = state.todos.map(item => {
         if (item.todoID !== state.activeTodoID) {
           return item;
         }
         return {
           ...item,
-          todoTitle: action.payload.title
+          todoTitle: state.activeTodoTitle
         };
       });
 
@@ -87,6 +97,13 @@ function rootReducer(state = initialState, action) {
         activeTodoID: null,
         activeTodoTitle: "",
         todos
+      };
+    }
+
+    case TOGGLE_MODAL_CLOSE: {
+      return {
+        ...state,
+        isOpenEditModal: false,
       };
     }
     default: {
